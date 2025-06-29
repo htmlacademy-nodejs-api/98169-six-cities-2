@@ -5,7 +5,6 @@ import { ImportCommand } from './cli/commands/import.command.js';
 import { VersionCommand } from './cli/commands/version.command.js';
 
 function bootstrap() {
-  console.log(process.argv);
   const cliApplication = new CLIApplication();
   cliApplication.registerCommands([
     new HelpCommand(),

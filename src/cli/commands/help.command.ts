@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+import chalk from 'chalk';
 import { Command } from './command.interface.js';
 
 export class HelpCommand implements Command {
@@ -7,20 +9,30 @@ export class HelpCommand implements Command {
 
   public async execute(..._parameters: string[]): Promise<void> {
     console.info(`
-        Usage:
-          node cli.js [command]
+${chalk.bold.blue('Usage:')}
+  ${chalk.cyan('node main.cli.js')} ${chalk.yellow('[command]')}
 
-        Description:
-          This CLI application prepares and validates data to be sent to a REST API server.
-          It supports various commands to inspect, transform, and format data before submission.
+${chalk.bold.blue('Description:')}
+  ${chalk.white(
+    'This CLI application prepares and validates data to be sent to a REST API server.'
+  )}
+  ${chalk.white(
+    'It supports various commands to inspect, transform, and format data before submission.'
+  )}
 
-        Available Commands:
-          --version       Display the current application version.
-          --help          Show this help message.
+${chalk.bold.blue('Available Commands:')}
+  ${chalk.green('--version')}       ${chalk.gray(
+      'Display the current application version'
+    )}
+  ${chalk.green('--help')}          ${chalk.gray('Show this help message')}
+  ${chalk.green('--import <file>')} ${chalk.gray('Import data from a TSV file')}
 
-        Examples:
-          node cli.js --version
-          node cli.js --help
-    `);
+${chalk.bold.blue('Examples:')}
+  ${chalk.cyan('node main.cli.js')} ${chalk.green('--version')}
+  ${chalk.cyan('node main.cli.js')} ${chalk.green('--help')}
+  ${chalk.cyan('node main.cli.js')} ${chalk.green('--import')} ${chalk.yellow(
+      'src/mocks/data.tsv'
+    )}
+`);
   }
 }
