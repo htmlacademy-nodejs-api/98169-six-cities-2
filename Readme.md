@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Саша Дерменжи](https://up.htmlacademy.ru/nodejs-api-individual/2/user/98169).
-* Наставник: `Неизвестно`.
+- Студент: [Alexandr Dermenji](https://up.htmlacademy.ru/nodejs-api-individual/2/user/98169).
+- Наставник: `Константин Ильин`.
 
 ---
 
