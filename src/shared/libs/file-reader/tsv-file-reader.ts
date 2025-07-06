@@ -2,6 +2,9 @@ import { readFileSync } from 'node:fs';
 import { FileReader } from './file-reader.interface.js';
 import { Offer } from '../../types/offer.type.js';
 import { OfferType } from '../../types/offer-type.enum.js';
+import { City } from '../../types/city.type.js';
+import { Amenity } from '../../types/amenity.type.js';
+import { UserType } from '../../types/user-type.enum.js';
 
 export class TSVFileReader implements FileReader {
   private rawData = '';
@@ -25,23 +28,48 @@ export class TSVFileReader implements FileReader {
           title,
           description,
           createdDate,
-          image,
+          city,
+          previewImage,
+          images,
+          isPremium,
+          isFavourite,
+          rating,
           type,
+          rooms,
+          guests,
           price,
-          categories,
-          firstName,
-          lastName,
-          email,
-          avatarPath,
+          amenities,
+          authorName,
+          authorEmail,
+          authorAvatar,
+          authorType,
+          latitude,
+          longitude,
         ]) => ({
           title,
           description,
           postDate: new Date(createdDate),
-          image,
-          type: OfferType[type as 'Buy' | 'Sell'],
+          city: city as City,
+          previewImage,
+          images,
+          isPremium: isPremium === 'true',
+          isFavourite: isFavourite === 'true',
+          rating: Number.parseFloat(rating),
+          type: type as OfferType,
+          rooms: Number.parseInt(rooms, 10),
+          guests: Number.parseInt(guests, 10),
           price: Number.parseInt(price, 10),
-          categories: categories.split(';').map((name) => ({ name })),
-          user: { firstName, lastName, email, avatarPath },
+          amenities: amenities.split(';').map((amenity) => amenity.trim() as Amenity),
+          user: {
+            name: authorName,
+            email: authorEmail,
+            avatarPath: authorAvatar || undefined,
+            type: authorType as UserType,
+          },
+          coordinates: {
+            latitude: Number.parseFloat(latitude),
+            longitude: Number.parseFloat(longitude),
+          },
         })
       );
   }
