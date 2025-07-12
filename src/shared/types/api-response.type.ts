@@ -1,4 +1,3 @@
-import { OfferType } from './offer-type.enum.js';
 import { UserType } from './user-type.enum.js';
 import { Amenity } from './amenity.type.js';
 
@@ -15,31 +14,10 @@ export type UserDto = {
   type: UserType;
 };
 
-export type CoordinatesDto = {
-  latitude: number;
-  longitude: number;
-};
-
-export type OfferDto = {
-  id: string;
-  title: string;
-  description: string;
-  postDate: string;
-  city: CityDto;
-  previewImage: string;
-  images: string[];
-  isPremium: boolean;
-  isFavourite: boolean;
-  rating: number;
-  type: OfferType;
-  rooms: number;
-  guests: number;
-  price: number;
+export type MockDataDto = {
+  titles: string[];
+  descriptions: string[];
+  cities: CityDto[];
   amenities: Amenity[];
-  user: UserDto;
-  coordinates: CoordinatesDto;
-};
-
-export type OffersResponseDto = {
-  offers: OfferDto[];
+  users: UserDto[];
 };

@@ -1,5 +1,5 @@
 import { Command } from './command.interface.js';
-import { OffersResponseDto } from '../../shared/types/api-response.type.js';
+import { MockDataDto } from '../../shared/types/api-response.type.js';
 import { writeFile } from 'node:fs/promises';
 import { OfferGenerator } from '../../shared/libs/offer-generator/tsv-offer-generator.js';
 import got from 'got';
@@ -48,8 +48,11 @@ export class GenerateCommand implements Command {
     }
   }
 
-  private async load(url: string): Promise<OffersResponseDto> {
+  private async load(url: string): Promise<MockDataDto> {
     const response = await got(url);
-    return JSON.parse(response.body) as OffersResponseDto;
+
+    const data = JSON.parse(response.body) as MockDataDto;
+
+    return data;
   }
 }

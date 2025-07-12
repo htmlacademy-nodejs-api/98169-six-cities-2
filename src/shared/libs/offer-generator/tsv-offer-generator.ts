@@ -1,5 +1,6 @@
 import { OfferGeneratorInterface } from './offer-generator.interface.js';
-import { OffersResponseDto } from '../../types/api-response.type.js';
+import { MockDataDto } from '../../types/api-response.type.js';
+import { OfferType } from '../../types/offer-type.enum.js';
 import {
   generateRandomValue,
   getRandomItem,
@@ -7,32 +8,53 @@ import {
 } from '../../utils/random.js';
 
 export class OfferGenerator implements OfferGeneratorInterface {
-  public generate(data: OffersResponseDto, count: number): string {
+  private readonly offerTypes = [
+    OfferType.Apartment,
+    OfferType.House,
+    OfferType.Room,
+    OfferType.Hotel,
+  ];
+
+  private readonly minRating = 1;
+  private readonly maxRating = 5;
+  private readonly minRooms = 1;
+  private readonly maxRooms = 8;
+  private readonly minGuests = 1;
+  private readonly maxGuests = 10;
+  private readonly minPrice = 100;
+  private readonly maxPrice = 100000;
+
+  public generate(data: MockDataDto, count: number): string {
+    if (
+      !data.titles?.length ||
+      !data.descriptions?.length ||
+      !data.cities?.length ||
+      !data.users?.length
+    ) {
+      throw new Error('Invalid mock data: missing required arrays');
+    }
+
     const results: string[] = [];
 
     for (let i = 0; i < count; i++) {
-      const baseOffer = getRandomItem(data.offers);
-
-      const title = this.generateTitle(data.offers.map((o) => o.title));
-      const description = this.generateDescription(
-        data.offers.map((o) => o.description)
-      );
+      const title = getRandomItem(data.titles);
+      const description = getRandomItem(data.descriptions);
       const postDate = this.generateRandomDate();
-      const city = getRandomItem(data.offers).city;
+      const city = getRandomItem(data.cities);
       const previewImage = this.generateImageUrl(city.name, 'preview');
       const image = this.generateImageUrl(city.name, '1');
-      const isPremium = Math.random() > 0.5;
-      const isFavourite = Math.random() > 0.7;
-      const rating = generateRandomValue(1, 5, 1);
-      const type = getRandomItem(data.offers).type;
-      const rooms = generateRandomValue(1, 8);
-      const guests = generateRandomValue(1, 10);
-      const price = generateRandomValue(100, 100000);
-      const amenities = getRandomItems(
-        data.offers.flatMap((o) => o.amenities)
-      ).join(';');
-      const user = getRandomItem(data.offers).user;
-      const coordinates = baseOffer.coordinates;
+      const isPremium = generateRandomValue(0, 1) > 0.5;
+      const isFavourite = generateRandomValue(0, 1) > 0.7;
+      const rating = generateRandomValue(this.minRating, this.maxRating, 1);
+      const type = getRandomItem(this.offerTypes);
+      const rooms = generateRandomValue(this.minRooms, this.maxRooms);
+      const guests = generateRandomValue(this.minGuests, this.maxGuests);
+      const price = generateRandomValue(this.minPrice, this.maxPrice);
+      const amenities =
+        data.amenities?.length > 0
+          ? getRandomItems(data.amenities).join(';')
+          : '';
+      const user = getRandomItem(data.users);
 
       const tsvLine = [
         title,
@@ -53,34 +75,14 @@ export class OfferGenerator implements OfferGeneratorInterface {
         user.email,
         user.avatar,
         user.type,
-        coordinates.latitude.toString(),
-        coordinates.longitude.toString(),
+        city.latitude.toString(),
+        city.longitude.toString(),
       ].join('\t');
 
       results.push(tsvLine);
     }
 
     return results.join('\n');
-  }
-
-  private generateTitle(titles: string[]): string {
-    const baseTitle = getRandomItem(titles);
-    const adjectives = [
-      'Beautiful',
-      'Charming',
-      'Luxury',
-      'Cozy',
-      'Modern',
-      'Spacious',
-      'Private',
-      'Executive',
-    ];
-    const adjective = getRandomItem(adjectives);
-    return baseTitle.replace(/^[A-Z][a-z]+/, adjective);
-  }
-
-  private generateDescription(descriptions: string[]): string {
-    return getRandomItem(descriptions);
   }
 
   private generateRandomDate(): string {
