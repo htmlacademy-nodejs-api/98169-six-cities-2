@@ -1,3 +1,5 @@
+import { OffersResponseDto } from '../../types/api-response.type.js';
+
 export interface OfferGeneratorInterface {
-  generate(): void;
+  generate(data: OffersResponseDto, count: number): string;
 }
