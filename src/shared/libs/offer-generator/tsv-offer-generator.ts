@@ -1,6 +1,9 @@
 import { OfferGeneratorInterface } from './offer-generator.interface.js';
 import { MockDataDto } from '../../types/api-response.type.js';
+import { Offer } from '../../types/offer.type.js';
 import { OfferType } from '../../types/offer-type.enum.js';
+import { UserType } from '../../types/user-type.enum.js';
+import { City } from '../../types/city.type.js';
 import {
   generateRandomValue,
   getRandomItem,
@@ -24,7 +27,7 @@ export class OfferGenerator implements OfferGeneratorInterface {
   private readonly minPrice = 100;
   private readonly maxPrice = 100000;
 
-  public generate(data: MockDataDto, count: number): string {
+  public generate(data: MockDataDto, count: number): Offer[] {
     if (
       !data.titles?.length ||
       !data.descriptions?.length ||
@@ -34,15 +37,15 @@ export class OfferGenerator implements OfferGeneratorInterface {
       throw new Error('Invalid mock data: missing required arrays');
     }
 
-    const results: string[] = [];
+    const results: Offer[] = [];
 
     for (let i = 0; i < count; i++) {
       const title = getRandomItem(data.titles);
       const description = getRandomItem(data.descriptions);
-      const postDate = this.generateRandomDate();
-      const city = getRandomItem(data.cities);
-      const previewImage = this.generateImageUrl(city.name, 'preview');
-      const image = this.generateImageUrl(city.name, '1');
+      const postDate = new Date(this.generateRandomDate());
+      const cityData = getRandomItem(data.cities);
+      const previewImage = this.generateImageUrl(cityData.name, 'preview');
+      const images = this.generateImageUrl(cityData.name, '1');
       const isPremium = generateRandomValue(0, 1) > 0.5;
       const isFavourite = generateRandomValue(0, 1) > 0.7;
       const rating = generateRandomValue(this.minRating, this.maxRating, 1);
@@ -50,39 +53,40 @@ export class OfferGenerator implements OfferGeneratorInterface {
       const rooms = generateRandomValue(this.minRooms, this.maxRooms);
       const guests = generateRandomValue(this.minGuests, this.maxGuests);
       const price = generateRandomValue(this.minPrice, this.maxPrice);
-      const amenities =
-        data.amenities?.length > 0
-          ? getRandomItems(data.amenities).join(';')
-          : '';
-      const user = getRandomItem(data.users);
+      const amenities = data.amenities?.length > 0 ? getRandomItems(data.amenities) : [];
+      const userData = getRandomItem(data.users);
 
-      const tsvLine = [
+      const offer: Offer = {
         title,
         description,
         postDate,
-        city.name,
+        city: cityData.name as City,
         previewImage,
-        image,
-        isPremium.toString(),
-        isFavourite.toString(),
-        rating.toString(),
+        images,
+        isPremium,
+        isFavourite,
+        rating,
         type,
-        rooms.toString(),
-        guests.toString(),
-        price.toString(),
+        rooms,
+        guests,
+        price,
         amenities,
-        user.name,
-        user.email,
-        user.avatar,
-        user.type,
-        city.latitude.toString(),
-        city.longitude.toString(),
-      ].join('\t');
+        user: {
+          name: userData.name,
+          email: userData.email,
+          avatarPath: userData.avatar || undefined,
+          type: userData.type as UserType,
+        },
+        coordinates: {
+          latitude: cityData.latitude,
+          longitude: cityData.longitude,
+        },
+      };
 
-      results.push(tsvLine);
+      results.push(offer);
     }
 
-    return results.join('\n');
+    return results;
   }
 
   private generateRandomDate(): string {

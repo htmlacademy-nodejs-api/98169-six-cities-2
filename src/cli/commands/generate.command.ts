@@ -1,7 +1,8 @@
 import { Command } from './command.interface.js';
 import { MockDataDto } from '../../shared/types/api-response.type.js';
-import { writeFile } from 'node:fs/promises';
 import { OfferGenerator } from '../../shared/libs/offer-generator/tsv-offer-generator.js';
+import { TSVFileWriter } from '../../shared/libs/file-reader/tsv-file-writer.js';
+import { Offer } from '../../shared/types/offer.type.js';
 import got from 'got';
 
 export class GenerateCommand implements Command {
@@ -33,19 +34,52 @@ export class GenerateCommand implements Command {
   ): Promise<void> {
     try {
       const data = await this.load(url);
-
       const generator = new OfferGenerator();
-      const tsvData = generator.generate(data, count);
+      const offers = generator.generate(data, count);
 
-      await writeFile(filepath, tsvData, 'utf-8');
+      console.log(`Generated ${count} offers:`);
+      offers.forEach((offer, index) => {
+        console.log(`${index + 1}. ${offer.title} in ${offer.city}`);
+      });
 
-      console.log(`Generated ${count} offers and saved to ${filepath}`);
+      await this.writeOffersToFile(offers, filepath);
+
+      console.log(`Saved ${count} offers to ${filepath}`);
     } catch (error: unknown) {
       if (!(error instanceof Error)) {
         throw error;
       }
       console.error(`Can't generate data: ${error.message}`);
     }
+  }
+
+  private async writeOffersToFile(
+    offers: Offer[],
+    filepath: string
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const writer = new TSVFileWriter(filepath);
+      let writtenCount = 0;
+
+      writer.on('written', () => {
+        writtenCount++;
+        if (writtenCount === offers.length) {
+          writer.end();
+        }
+      });
+
+      writer.on('finish', () => {
+        resolve();
+      });
+
+      writer.on('error', (error) => {
+        reject(error);
+      });
+
+      offers.forEach((offer) => {
+        writer.write(offer);
+      });
+    });
   }
 
   private async load(url: string): Promise<MockDataDto> {
