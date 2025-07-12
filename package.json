@@ -14,7 +14,8 @@
     "lint": "eslint src/ --ext .ts",
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
-    "ts": "tsx"
+    "ts": "tsx",
+    "mock:server": "json-server ./mocks/db.json --port 3001"
   },
   "devDependencies": {
     "@types/node": "18.17.17",
@@ -33,6 +34,7 @@
     "npm": ">=8"
   },
   "dependencies": {
-    "chalk": "^5.4.1"
+    "chalk": "^5.4.1",
+    "dayjs": "^1.11.13"
   }
 }

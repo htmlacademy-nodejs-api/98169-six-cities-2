@@ -1,0 +1,253 @@
+{
+  "offers": [
+    {
+      "id": "1",
+      "title": "Beautiful Studio in Amsterdam Center",
+      "description": "A cozy studio apartment located in the heart of Amsterdam. Perfect for couples or solo travelers. Walking distance to major attractions, museums, and restaurants. Features modern amenities and stylish decor.",
+      "postDate": "2024-01-15T10:30:00.000Z",
+      "city": {
+        "name": "Amsterdam",
+        "latitude": 52.370216,
+        "longitude": 4.895168
+      },
+      "previewImage": "https://example.com/images/amsterdam-studio-preview.jpg",
+      "images": [
+        "https://example.com/images/amsterdam-studio-1.jpg",
+        "https://example.com/images/amsterdam-studio-2.jpg",
+        "https://example.com/images/amsterdam-studio-3.jpg",
+        "https://example.com/images/amsterdam-studio-4.jpg",
+        "https://example.com/images/amsterdam-studio-5.jpg",
+        "https://example.com/images/amsterdam-studio-6.jpg"
+      ],
+      "isPremium": true,
+      "isFavourite": false,
+      "rating": 4.8,
+      "type": "apartment",
+      "rooms": 1,
+      "guests": 2,
+      "price": 120,
+      "amenities": [
+        "Air conditioning",
+        "Laptop friendly workspace",
+        "Towels",
+        "Fridge"
+      ],
+      "user": {
+        "name": "Maria",
+        "email": "maria@example.com",
+        "avatar": "https://example.com/avatars/maria.jpg",
+        "type": "pro"
+      },
+      "coordinates": {
+        "latitude": 52.3909553943508,
+        "longitude": 4.85309666406198
+      }
+    },
+    {
+      "id": "2",
+      "title": "Spacious Family House in Paris Suburbs",
+      "description": "Large family house with garden, perfect for families with children. Located in a quiet residential area with easy access to Paris city center via metro. Three bedrooms, full kitchen, and private parking space.",
+      "postDate": "2024-01-20T14:45:00.000Z",
+      "city": {
+        "name": "Paris",
+        "latitude": 48.85661,
+        "longitude": 2.351499
+      },
+      "previewImage": "https://example.com/images/paris-house-preview.jpg",
+      "images": [
+        "https://example.com/images/paris-house-1.jpg",
+        "https://example.com/images/paris-house-2.jpg",
+        "https://example.com/images/paris-house-3.jpg",
+        "https://example.com/images/paris-house-4.jpg",
+        "https://example.com/images/paris-house-5.jpg",
+        "https://example.com/images/paris-house-6.jpg"
+      ],
+      "isPremium": false,
+      "isFavourite": true,
+      "rating": 4.2,
+      "type": "house",
+      "rooms": 3,
+      "guests": 6,
+      "price": 180,
+      "amenities": ["Breakfast", "Washer", "Baby seat", "Fridge"],
+      "user": {
+        "name": "Jean",
+        "email": "jean@example.com",
+        "avatar": "https://example.com/avatars/jean.jpg",
+        "type": "regular"
+      },
+      "coordinates": {
+        "latitude": 48.8534951403508,
+        "longitude": 2.3639309666406
+      }
+    },
+    {
+      "id": "3",
+      "title": "Luxury Hotel Room in Brussels",
+      "description": "Premium hotel room in the business district of Brussels. Features king-size bed, marble bathroom, and stunning city views. Includes access to hotel spa, fitness center, and 24-hour room service.",
+      "postDate": "2024-01-25T09:15:00.000Z",
+      "city": {
+        "name": "Brussels",
+        "latitude": 50.846557,
+        "longitude": 4.351697
+      },
+      "previewImage": "https://example.com/images/brussels-hotel-preview.jpg",
+      "images": [
+        "https://example.com/images/brussels-hotel-1.jpg",
+        "https://example.com/images/brussels-hotel-2.jpg",
+        "https://example.com/images/brussels-hotel-3.jpg",
+        "https://example.com/images/brussels-hotel-4.jpg",
+        "https://example.com/images/brussels-hotel-5.jpg",
+        "https://example.com/images/brussels-hotel-6.jpg"
+      ],
+      "isPremium": true,
+      "isFavourite": false,
+      "rating": 4.9,
+      "type": "hotel",
+      "rooms": 1,
+      "guests": 2,
+      "price": 250,
+      "amenities": [
+        "Breakfast",
+        "Air conditioning",
+        "Laptop friendly workspace",
+        "Towels"
+      ],
+      "user": {
+        "name": "Sophie",
+        "email": "sophie@example.com",
+        "avatar": "https://example.com/avatars/sophie.jpg",
+        "type": "pro"
+      },
+      "coordinates": {
+        "latitude": 50.8505573943508,
+        "longitude": 4.3551966640619
+      }
+    },
+    {
+      "id": "4",
+      "title": "Cozy Room in Hamburg Harbor Area",
+      "description": "Single room in a shared apartment near Hamburg harbor. Perfect for budget travelers and digital nomads. Shared kitchen and living area. Close to restaurants, cafes, and public transportation.",
+      "postDate": "2024-02-01T16:20:00.000Z",
+      "city": {
+        "name": "Hamburg",
+        "latitude": 53.550341,
+        "longitude": 10.000654
+      },
+      "previewImage": "https://example.com/images/hamburg-room-preview.jpg",
+      "images": [
+        "https://example.com/images/hamburg-room-1.jpg",
+        "https://example.com/images/hamburg-room-2.jpg",
+        "https://example.com/images/hamburg-room-3.jpg",
+        "https://example.com/images/hamburg-room-4.jpg",
+        "https://example.com/images/hamburg-room-5.jpg",
+        "https://example.com/images/hamburg-room-6.jpg"
+      ],
+      "isPremium": false,
+      "isFavourite": false,
+      "rating": 3.8,
+      "type": "room",
+      "rooms": 1,
+      "guests": 1,
+      "price": 65,
+      "amenities": ["Laptop friendly workspace", "Washer", "Fridge"],
+      "user": {
+        "name": "Klaus",
+        "email": "klaus@example.com",
+        "avatar": "https://example.com/avatars/klaus.jpg",
+        "type": "regular"
+      },
+      "coordinates": {
+        "latitude": 53.5553413943508,
+        "longitude": 10.0056540640619
+      }
+    },
+    {
+      "id": "5",
+      "title": "Modern Apartment in Cologne Old Town",
+      "description": "Newly renovated apartment in historic Cologne. Combines modern comfort with traditional charm. Walking distance to Cologne Cathedral and Rhine River. Equipped with all modern amenities and high-speed internet.",
+      "postDate": "2024-02-05T12:10:00.000Z",
+      "city": {
+        "name": "Cologne",
+        "latitude": 50.938361,
+        "longitude": 6.959974
+      },
+      "previewImage": "https://example.com/images/cologne-apartment-preview.jpg",
+      "images": [
+        "https://example.com/images/cologne-apartment-1.jpg",
+        "https://example.com/images/cologne-apartment-2.jpg",
+        "https://example.com/images/cologne-apartment-3.jpg",
+        "https://example.com/images/cologne-apartment-4.jpg",
+        "https://example.com/images/cologne-apartment-5.jpg",
+        "https://example.com/images/cologne-apartment-6.jpg"
+      ],
+      "isPremium": true,
+      "isFavourite": true,
+      "rating": 4.6,
+      "type": "apartment",
+      "rooms": 2,
+      "guests": 4,
+      "price": 140,
+      "amenities": [
+        "Air conditioning",
+        "Laptop friendly workspace",
+        "Towels",
+        "Fridge",
+        "Washer"
+      ],
+      "user": {
+        "name": "Anna",
+        "email": "anna@example.com",
+        "avatar": "https://example.com/avatars/anna.jpg",
+        "type": "pro"
+      },
+      "coordinates": {
+        "latitude": 50.9433610943508,
+        "longitude": 6.9649740640619
+      }
+    },
+    {
+      "id": "6",
+      "title": "Business Hotel Suite in Dusseldorf",
+      "description": "Executive suite in premium business hotel. Perfect for business travelers. Features separate living area, work desk, and premium bedding. Includes access to executive lounge and complimentary breakfast.",
+      "postDate": "2024-02-10T08:30:00.000Z",
+      "city": {
+        "name": "Dusseldorf",
+        "latitude": 51.225402,
+        "longitude": 6.776314
+      },
+      "previewImage": "https://example.com/images/dusseldorf-suite-preview.jpg",
+      "images": [
+        "https://example.com/images/dusseldorf-suite-1.jpg",
+        "https://example.com/images/dusseldorf-suite-2.jpg",
+        "https://example.com/images/dusseldorf-suite-3.jpg",
+        "https://example.com/images/dusseldorf-suite-4.jpg",
+        "https://example.com/images/dusseldorf-suite-5.jpg",
+        "https://example.com/images/dusseldorf-suite-6.jpg"
+      ],
+      "isPremium": true,
+      "isFavourite": false,
+      "rating": 4.7,
+      "type": "hotel",
+      "rooms": 2,
+      "guests": 3,
+      "price": 320,
+      "amenities": [
+        "Breakfast",
+        "Air conditioning",
+        "Laptop friendly workspace",
+        "Towels"
+      ],
+      "user": {
+        "name": "Michael",
+        "email": "michael@example.com",
+        "avatar": "https://example.com/avatars/michael.jpg",
+        "type": "pro"
+      },
+      "coordinates": {
+        "latitude": 51.2304020943508,
+        "longitude": 6.7813140640619
+      }
+    }
+  ]
+}
