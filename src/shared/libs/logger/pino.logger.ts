@@ -1,6 +1,8 @@
+import { injectable } from 'inversify';
 import { pino, Logger as PinoLoggerInterface } from 'pino';
 import { Logger } from './logger.interface.js';
 
+@injectable()
 export class PinoLogger implements Logger {
   private readonly logger: PinoLoggerInterface;
 
@@ -11,19 +13,19 @@ export class PinoLogger implements Logger {
           {
             target: 'pino/file',
             options: {
-              destination: './logs/rest.log'
-            }
+              destination: './logs/rest.log',
+            },
           },
           {
             target: 'pino-pretty',
             options: {
               colorize: true,
               translateTime: 'HH:MM:ss Z',
-              ignore: 'pid,hostname'
-            }
-          }
-        ]
-      }
+              ignore: 'pid,hostname',
+            },
+          },
+        ],
+      },
     });
   }
 
