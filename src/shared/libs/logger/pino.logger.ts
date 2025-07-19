@@ -5,7 +5,26 @@ export class PinoLogger implements Logger {
   private readonly logger: PinoLoggerInterface;
 
   constructor() {
-    this.logger = pino();
+    this.logger = pino({
+      transport: {
+        targets: [
+          {
+            target: 'pino/file',
+            options: {
+              destination: './logs/rest.log'
+            }
+          },
+          {
+            target: 'pino-pretty',
+            options: {
+              colorize: true,
+              translateTime: 'HH:MM:ss Z',
+              ignore: 'pid,hostname'
+            }
+          }
+        ]
+      }
+    });
   }
 
   public info(message: string, ...args: unknown[]): void {
