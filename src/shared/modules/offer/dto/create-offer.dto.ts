@@ -5,7 +5,7 @@ import { Coordinates } from '../../../types/coordinates.type.js';
 export class CreateOfferDto {
   public title!: string;
   public description!: string;
-  public cityId!: string;
+  public city!: string;
   public previewImage!: string;
   public photos!: string[];
   public isPremium!: boolean;
@@ -16,6 +16,6 @@ export class CreateOfferDto {
   public guests!: number;
   public price!: number;
   public amenities!: Amenity[];
-  public authorId!: string;
+  public author!: string;
   public coordinates!: Coordinates;
 }
