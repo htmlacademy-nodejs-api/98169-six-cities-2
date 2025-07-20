@@ -1,22 +1,26 @@
 #!/usr/bin/env node
 import 'reflect-metadata';
-import { Container } from 'inversify';
 import { RestApplication } from './rest/index.js';
-import { Logger, PinoLogger } from './shared/libs/logger/index.js';
-import { Config, RestConfig } from './shared/libs/config/index.js';
-import { DatabaseClient, MongoDatabaseClient } from './shared/libs/database-client/index.js';
-import { RestSchema } from './shared/libs/config/rest.schema.js';
+import { createRestApplicationContainer } from './rest/rest.container.js';
+import { createUserContainer } from './shared/modules/user/user.container.js';
 import { Component } from './shared/types/component.enum.js';
 
 async function bootstrap() {
-  const container = new Container();
+  // Create REST application container with core dependencies
+  const restContainer = createRestApplicationContainer();
 
-  container.bind<Logger>(Component.Logger).to(PinoLogger).inSingletonScope();
-  container.bind<Config<RestSchema>>(Component.Config).to(RestConfig).inSingletonScope();
-  container.bind<DatabaseClient>(Component.DatabaseClient).to(MongoDatabaseClient).inSingletonScope();
-  container.bind<RestApplication>(Component.RestApplication).to(RestApplication).inSingletonScope();
+  // Create user container and copy its bindings to REST container
+  const userContainer = createUserContainer();
 
-  const restApplication = container.get<RestApplication>(Component.RestApplication);
+  // Copy user bindings to REST container
+  const userService = userContainer.get(Component.UserService);
+  const userModel = userContainer.get(Component.UserModel);
+  restContainer.bind(Component.UserService).toConstantValue(userService);
+  restContainer.bind(Component.UserModel).toConstantValue(userModel);
+
+  const restApplication = restContainer.get<RestApplication>(
+    Component.RestApplication
+  );
   await restApplication.init();
 }
 
