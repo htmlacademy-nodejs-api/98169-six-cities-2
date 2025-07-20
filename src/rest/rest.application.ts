@@ -29,6 +29,8 @@ export class RestApplication {
     this.logger.info('Connecting to the database...');
     await this._initDb();
     this.logger.info('Database initialization completed');
+
+    this.logger.info('Test user creation completed');
   }
 
   private async _initDb(): Promise<void> {
