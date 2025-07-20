@@ -2,8 +2,6 @@ import { injectable, inject } from 'inversify';
 import mongoose from 'mongoose';
 import { DatabaseClient } from './database-client.interface.js';
 import { Logger } from '../logger/index.js';
-import { Config } from '../config/index.js';
-import { RestSchema } from '../config/rest.schema.js';
 import { Component } from '../../types/component.enum.js';
 
 @injectable()
@@ -12,8 +10,7 @@ export class MongoDatabaseClient implements DatabaseClient {
   private isConnected: boolean;
 
   constructor(
-    @inject(Component.Logger) private readonly logger: Logger,
-    @inject(Component.Config) private readonly config: Config<RestSchema>
+    @inject(Component.Logger) private readonly logger: Logger
   ) {
     this.mongoose = mongoose;
     this.isConnected = false;
