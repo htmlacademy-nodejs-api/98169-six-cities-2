@@ -45,6 +45,7 @@
     "dotenv": "^17.2.0",
     "got": "14.4.7",
     "inversify": "^7.6.1",
+    "mongoose": "^8.16.4",
     "pino": "^9.7.0",
     "reflect-metadata": "^0.2.2",
     "ts-node": "10.9.2",
