@@ -1,24 +1,19 @@
 #!/usr/bin/env node
 import 'reflect-metadata';
+import { Container } from 'inversify';
 import { RestApplication } from './rest/index.js';
-import { createRestApplicationContainer } from './rest/rest.container.js';
-import { createUserContainer } from './shared/modules/user/user.container.js';
+import { restApplicationModule } from './rest/rest.container.js';
+import { userModule } from './shared/modules/user/user.container.js';
 import { Component } from './shared/types/component.enum.js';
 
 async function bootstrap() {
-  // Create REST application container with core dependencies
-  const restContainer = createRestApplicationContainer();
+  const appContainer = new Container();
 
-  // Create user container and copy its bindings to REST container
-  const userContainer = createUserContainer();
+  appContainer.load(restApplicationModule);
 
-  // Copy user bindings to REST container
-  const userService = userContainer.get(Component.UserService);
-  const userModel = userContainer.get(Component.UserModel);
-  restContainer.bind(Component.UserService).toConstantValue(userService);
-  restContainer.bind(Component.UserModel).toConstantValue(userModel);
+  appContainer.load(userModule);
 
-  const restApplication = restContainer.get<RestApplication>(
+  const restApplication = appContainer.get<RestApplication>(
     Component.RestApplication
   );
   await restApplication.init();

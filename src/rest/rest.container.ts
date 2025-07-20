@@ -1,4 +1,4 @@
-import { Container } from 'inversify';
+import { ContainerModule } from 'inversify';
 import { RestApplication } from './rest.application.js';
 import { Logger, PinoLogger } from '../shared/libs/logger/index.js';
 import { Config, RestConfig } from '../shared/libs/config/index.js';
@@ -9,25 +9,13 @@ import {
 import { RestSchema } from '../shared/libs/config/rest.schema.js';
 import { Component } from '../shared/types/component.enum.js';
 
-export function createRestApplicationContainer(): Container {
-  const restContainer = new Container();
-
-  restContainer
-    .bind<Logger>(Component.Logger)
-    .to(PinoLogger)
-    .inSingletonScope();
-  restContainer
-    .bind<Config<RestSchema>>(Component.Config)
-    .to(RestConfig)
-    .inSingletonScope();
-  restContainer
-    .bind<DatabaseClient>(Component.DatabaseClient)
+export const restApplicationModule = new ContainerModule(({ bind }) => {
+  bind<Logger>(Component.Logger).to(PinoLogger).inSingletonScope();
+  bind<Config<RestSchema>>(Component.Config).to(RestConfig).inSingletonScope();
+  bind<DatabaseClient>(Component.DatabaseClient)
     .to(MongoDatabaseClient)
     .inSingletonScope();
-  restContainer
-    .bind<RestApplication>(Component.RestApplication)
+  bind<RestApplication>(Component.RestApplication)
     .to(RestApplication)
     .inSingletonScope();
-
-  return restContainer;
-}
+});
