@@ -45,7 +45,7 @@ export class OfferGenerator implements OfferGeneratorInterface {
       const postDate = new Date(this.generateRandomDate());
       const cityData = getRandomItem(data.cities);
       const previewImage = this.generateImageUrl(cityData.name, 'preview');
-      const images = this.generateImageUrl(cityData.name, '1');
+      const images = this.generateImageUrls(cityData.name, 6);
       const isPremium = generateRandomValue(0, 1) > 0.5;
       const isFavourite = generateRandomValue(0, 1) > 0.7;
       const rating = generateRandomValue(this.minRating, this.maxRating, 1);
@@ -99,5 +99,13 @@ export class OfferGenerator implements OfferGeneratorInterface {
 
   private generateImageUrl(cityName: string, suffix: string): string {
     return `https://example.com/images/${cityName.toLowerCase()}-${suffix}.jpg`;
+  }
+
+  private generateImageUrls(cityName: string, count: number): string[] {
+    const urls: string[] = [];
+    for (let i = 1; i <= count; i++) {
+      urls.push(this.generateImageUrl(cityName, i.toString()));
+    }
+    return urls;
   }
 }

@@ -43,7 +43,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       postDate: new Date(createdDate),
       city: city as City,
       previewImage,
-      images,
+      images: images.split(';').map((image) => image.trim()),
       isPremium: isPremium === 'true',
       isFavourite: isFavourite === 'true',
       rating: Number.parseFloat(rating),
@@ -67,23 +67,31 @@ export class TSVFileReader extends EventEmitter implements FileReader {
     };
   }
 
-  public read(): void {
+  public async read(): Promise<void> {
     const stream = createReadStream(this.filename, { encoding: 'utf-8' });
     const lineReader = createInterface({ input: stream });
+    const offers: Offer[] = [];
 
     lineReader.on('line', (line: string) => {
       if (line.trim().length > 0) {
         try {
           const offer = this.parseLineToOffer(line);
-          this.emit('offer', offer);
+          offers.push(offer);
         } catch (error) {
           this.emit('error', error);
         }
       }
     });
 
-    lineReader.on('close', () => {
-      this.emit('end');
+    lineReader.on('close', async () => {
+      let count = 0;
+      for (const offer of offers) {
+        await new Promise<void>((resolve) => {
+          this.emit('offer', offer, resolve);
+        });
+        count++;
+      }
+      this.emit('end', count);
     });
 
     stream.on('error', (error) => {

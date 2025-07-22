@@ -10,7 +10,7 @@ export type Offer = {
   postDate: Date;
   city: City;
   previewImage: string;
-  images: string;
+  images: string[];
   isPremium: boolean;
   isFavourite: boolean;
   rating: number;
@@ -21,4 +21,4 @@ export type Offer = {
   amenities: Amenity[];
   user: User;
   coordinates: Coordinates;
-}
+};
